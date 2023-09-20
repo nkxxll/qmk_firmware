@@ -11,7 +11,7 @@
 
 #define PERMISSIVE_HOLD
 
-#define TAPPING_FORCE_HOLD
+#define QUICK_TAP_TERM 0
 
 #define COMBO_TERM 10
 
