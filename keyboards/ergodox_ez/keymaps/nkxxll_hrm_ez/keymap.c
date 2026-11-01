@@ -1,0 +1,132 @@
+#include QMK_KEYBOARD_H
+#include "version.h"
+
+#define KC_MAC_UNDO LGUI(KC_Z)
+#define KC_MAC_CUT LGUI(KC_X)
+#define KC_MAC_COPY LGUI(KC_C)
+#define KC_MAC_PASTE LGUI(KC_V)
+#define KC_PC_UNDO LCTL(KC_Z)
+#define KC_PC_CUT LCTL(KC_X)
+#define KC_PC_COPY LCTL(KC_C)
+#define KC_PC_PASTE LCTL(KC_V)
+#define ES_LESS_MAC KC_GRAVE
+#define ES_GRTR_MAC LSFT(KC_GRAVE)
+#define ES_BSLS_MAC ALGR(KC_6)
+#define NO_PIPE_ALT KC_GRAVE
+#define NO_BSLS_ALT KC_EQUAL
+#define LSA_T(kc) MT(MOD_LSFT | MOD_LALT, kc)
+#define BP_NDSH_MAC ALGR(KC_8)
+#define SE_SECT_MAC ALGR(KC_6)
+
+enum custom_keycodes {
+    MAC_LOCK,
+    VRSN = SAFE_RANGE,
+};
+
+enum layers {
+    BASE, // default layer
+    SYMB, // f keys and symb layer
+    MAC, // mac layer
+};
+
+// Explicit handedness for both halves, including the thumb clusters.
+const char chordal_hold_layout[MATRIX_ROWS][MATRIX_COLS] PROGMEM =
+    LAYOUT_ergodox_pretty(
+        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'L', 'L', 'L', 'R', 'R', 'R', 'R', 'R',
+        'L', 'L', 'R', 'R',
+        'L', 'R',
+        'L', 'L', 'L', 'R', 'R', 'R');
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    [BASE] = LAYOUT_ergodox_pretty(
+	    KC_HOME, KC_1, KC_2, KC_3, KC_4, KC_5, KC_MUTE, KC_PSCR, KC_6, KC_7, KC_8, KC_9, KC_0, KC_END,
+            KC_EQL, KC_Q, KC_W, KC_E, KC_R, KC_T, TT(SYMB), TT(MAC), KC_Y, KC_U, KC_I, KC_O, KC_P, KC_MINS,
+            KC_TAB, KC_A, LGUI_T(KC_S), LALT_T(KC_D), LCTL_T(KC_F), KC_G, KC_H, RCTL_T(KC_J), RALT_T(KC_K), RGUI_T(KC_L), KC_SCLN, KC_QUOT,
+            KC_UNDS, KC_Z, KC_X, KC_C, KC_V, KC_B, ALL_T(KC_NO), MEH_T(KC_NO), KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_BSLS,
+            KC_LALT, KC_DEL, KC_INS,  KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_PGDN, KC_PGUP, KC_LGUI,
+            LCTL_T(KC_ESC), KC_LGUI, KC_LALT, RCTL_T(KC_GRV),
+            KC_LEFT, KC_UP,
+            KC_LSFT, KC_ENTER, KC_RGHT, KC_DOWN, KC_BSPC, KC_SPACE),
+    // this is the two layer approach I want to try the one layer approach again
+    // KC_LSFT, KC_ENTER, KC_DEL, KC_INS, KC_BSPC, LT(SYMB, KC_SPACE)),
+
+    [SYMB] = LAYOUT_ergodox_pretty(VRSN, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_TRNS, KC_TRNS, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_TRANSPARENT, KC_TRNS, KC_EXLM, KC_PERC, KC_CIRC, KC_TRNS, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRNS, KC_AMPR, KC_ASTR, KC_UNDS, KC_TRNS, KC_F12, KC_TRANSPARENT, KC_TRANSPARENT, KC_LCBR, KC_LBRC, KC_LPRN, KC_PLUS, KC_MINUS, KC_RPRN, KC_RBRC, KC_RCBR, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRNS, KC_AT, KC_HASH, KC_DLR, KC_TRNS, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRNS, KC_PIPE, KC_PLUS, KC_BSLS, KC_TRNS, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT),
+
+    [MAC] = LAYOUT_ergodox_pretty(
+        // left hand
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LGUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LALT,
+
+        KC_TRNS, KC_LALT, KC_LGUI, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+};
+
+// Runs whenever there is a layer state change.
+layer_state_t layer_state_set_user(layer_state_t state) {
+    ergodox_board_led_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
+
+    uint8_t layer = get_highest_layer(state);
+    switch (layer) {
+        case 0:
+#ifdef RGBLIGHT_COLOR_LAYER_0
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
+#endif
+            break;
+        case 1:
+            ergodox_right_led_1_on();
+#ifdef RGBLIGHT_COLOR_LAYER_1
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
+#endif
+            break;
+        case 2:
+            ergodox_right_led_2_on();
+#ifdef RGBLIGHT_COLOR_LAYER_2
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
+#endif
+            break;
+        case 3:
+            ergodox_right_led_3_on();
+#ifdef RGBLIGHT_COLOR_LAYER_3
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
+#endif
+            break;
+        case 4:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+#ifdef RGBLIGHT_COLOR_LAYER_4
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
+#endif
+            break;
+        case 5:
+            ergodox_right_led_1_on();
+            ergodox_right_led_3_on();
+#ifdef RGBLIGHT_COLOR_LAYER_5
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
+#endif
+            break;
+        case 6:
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+#ifdef RGBLIGHT_COLOR_LAYER_6
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
+#endif
+            break;
+        case 7:
+            ergodox_right_led_1_on();
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
+#ifdef RGBLIGHT_COLOR_LAYER_7
+            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
+#endif
+            break;
+        default:
+            break;
+    }
+
+    return state;
+};
